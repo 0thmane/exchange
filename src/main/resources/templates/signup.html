@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/common/header :: common-header" />
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<div class="container">
+<div id="signupbox" style="margin-top:50px" class=" col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">Inscription</div>
+            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" th:href="@{/login}">S'authentifier</a></div>
+        </div>
+        <div class="panel-body" >
+            <form class="form-horizontal" method="post" th:action="@{/signup}">
+
+                <div class="form-group">
+                    <label for="firstname" class="cols-sm-2 control-label">Nom</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.firstname}" id="firstname" name="firstname" roleId="firstname"  placeholder="Enter your first name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname" class="cols-sm-2 control-label">Prénom</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.lastname}" id="lastname" name="lastname" roleId="lastname"  placeholder="Enter your last name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="cols-sm-2 control-label">Telephone</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.email}" id="email" name="email" roleId="email"  placeholder="Enter your Email" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="cols-sm-2 control-label">Username</label><span class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.username}" id="username" name="username" roleId="username"  placeholder="Enter your Username" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Mot de passe</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" th:value="${user.password}" id="password" name="password" roleId="password"  placeholder="Enter your Password" required="required"/>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input id="showPassword" type="checkbox" />Afficher le mot de passe
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">S'inscire!</button>
+                </div>
+
+                <hr />
+
+                <div class="form-group ">
+                    <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/}">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</div>
+</div>
+
+
+<div th:replace="admin/common/header :: body-bottom-scripts" />
+
+</body>
+</html>

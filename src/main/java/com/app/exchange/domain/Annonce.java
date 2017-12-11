@@ -16,10 +16,19 @@ public class Annonce {
     private Date dateDebut;
     private Date dateFin;
     private String description;
+    private boolean state;
     /*
     @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private DetailAnnonce detailAnnonce;*/
+    private DetailAnnonce detailAnnonce;
+    */
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 
     public Long getId() {
         return id;

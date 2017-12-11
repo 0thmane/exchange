@@ -4,6 +4,7 @@ import com.app.exchange.dao.IRoleDAO;
 import com.app.exchange.domain.User;
 import com.app.exchange.domain.security.UserRole;
 import com.app.exchange.service.MailService;
+import com.app.exchange.service.interfaces.ICategorieService;
 import com.app.exchange.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,15 +28,21 @@ public class HomeController {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private ICategorieService categorieService;
+
 
     @RequestMapping(value = "/")
-    public String home(){
+    public String home(Model model)
+    {
+        model.addAttribute("categorieList", categorieService.getAllCategorie());
         return "app/home";
     }
 
     @RequestMapping(value = "/home")
     public String getHome(){
-        return "app/home";
+
+        return "redirect:app/home";
     }
 
     @RequestMapping(value = "/login")

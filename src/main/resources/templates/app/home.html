@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Shoes Store from templatemo</title>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="/app/nivo-slider.css" type="text/css" media="screen" />
 
 <link rel="stylesheet" type="text/css" href="/app/css/ddsmoothmenu.css" />
+    <!--bootstrap date-time picker-->
+    <link href="/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 <script type="text/javascript" src="/app/js/jquery.min.js"></script>
 <script type="text/javascript" src="/app/js/ddsmoothmenu.js">
@@ -39,8 +42,9 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	<div id="site_title"><h1><a href="#">Online Exchange</a></h1></div>
         <div id="header_right">
-        	<p>
-                <a href="#">Mon compte</a> | <a href="#">Se déconnecter</a></p>
+
+        	<p >
+                 <a th:href="@{/login}" sec:authorize="isAnonymous()">S'authentifier</a>  | <a th:href="@{/signup}" sec:authorize="isAnonymous()">S'inscire</a>  <a href="#" sec:authorize="isAuthenticated()">Mon compte</a>  | <a href="#" sec:authorize="isAuthenticated()">Se déconnecter</a></p>
             <p>
 
 			</p>
@@ -51,15 +55,15 @@ ddsmoothmenu.init({
     <div id="templatemo_menubar">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="home.html" class="selected">Home</a></li>
+                <li><a href="home.html" class="selected">Acceuil</a></li>
                 <li><a th:href="@{/}">Annonces</a>
 
                 </li>
-                <li><a th:href="@{/bien/}">Mes biens</a>
+                <li><a th:href="@{/bien/}" sec:authorize="isAuthenticated()">Mes biens</a>
 
                 </li>
-                <li><a th:href="@{/}">Mes annonces</a></li>
-                <li><a th:href="@{/bien/}">Mes propositions</a></li>
+                <li><a th:href="@{/}" sec:authorize="isAuthenticated()">Mes annonces</a></li>
+                <li><a th:href="@{/bien/}" sec:authorize="isAuthenticated()">Mes propositions</a></li>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->
@@ -77,21 +81,8 @@ ddsmoothmenu.init({
             	<h3>Categories</h3>   
                 <div class="content"> 
                 	<ul class="sidebar_list">
-                    	<li class="first"><a href="#">Sed eget purus</a></li>
-                        <li><a href="#">Vestibulum eleifend</a></li>
-                        <li><a href="#">Nulla odio ipsum</a></li>
-                        <li><a href="#">Suspendisse posuere</a></li>
-                        <li><a href="#">Nunc a dui sed</a></li>
-                        <li><a href="#">Curabitur ac mauris</a></li>
-                        <li><a href="#">Mauris nulla tortor</a></li>
-                        <li><a href="#">Nullam ultrices</a></li>
-                        <li><a href="#">Nulla odio ipsum</a></li>
-                        <li><a href="#">Suspendisse posuere</a></li>
-                        <li><a href="#">Nunc a dui sed</a></li>
-                        <li><a href="#">Curabitur ac mauris</a></li>
-                        <li><a href="#">Mauris nulla tortor</a></li>
-                        <li><a href="#">Nullam ultrices</a></li>
-                        <li class="last"><a href="#">Sed eget purus</a></li>
+                    	<li data-th-each="eachCategorie : ${categorieList}"><a href="#" data-th-text="${eachCategorie.name}">...</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -168,8 +159,9 @@ ddsmoothmenu.init({
               <p class="product_price">$ 60</p>
                 <a href="shoppingcart.html" class="addtocart"></a>
                 <a href="productdetail.html" class="detail"></a>
-            </div>   
-            
+            </div>
+
+            <div class="center"><button id="ajouterAnnonce" class="open-to-edit btn btn-primary center-block" sec:authorize="isAuthenticated()">Ajouter une annonce</button></div>
             <div class="cleaner"></div>
                  	
 <div class="product_box">
@@ -208,6 +200,69 @@ ddsmoothmenu.init({
     
 </div> <!-- END of templatemo_wrapper -->
 </div> <!-- END of templatemo_body_wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="addAnnonceModal" role="dialog" >
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ajouter une annonce</h4>
+
+
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/annonce/save}" method="post">
+                    <input type="hidden" name="id" th:value="${annonce.id}" id="annonceId"/>
+
+                    <div class="form-group">
+                        <label for="annonceName">Name</label>
+                        <input type="text" class="form-control" th:value="${annonce.name}" name="name"
+                               id="annonceName" placeholder="Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="annonceDescription">Description</label>
+                        <textarea class="form-control" th:value="${annonce.description}" name="description"
+                                  id="annonceDescription" placeholder="Description" th:text="${annonce.description}"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateDeFin">Date de fin</label>
+                        <div class="input-append date form_datetime input-group" data-date="2016-10-21T15:25:00Z">
+                            <input class="form-control" type="text" value="" readonly="readonly"
+                                   th:value="${dateString}" name="dateString"
+                                   id="dateDeFin" required="required"/>
+                            <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bienPrice">Categorie</label>
+
+                        <select class="form-control" id="categorieId" th:value="${categorieId}" name="categorieId" required="required">
+                            <option disabled="disabled" selected="selected"> -- choisir une categorie -- </option>
+                            <option th:each="eachCategorie : ${categorieList}" th:value="${eachCategorie.id}" th:text="${eachCategorie.name}">....</option>
+                        </select>
+
+                    </div>
+
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
+
+                    <button class="btn btn-primary" type="submit">Ajouter/Modifier bien</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Ferme</button> -->
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>

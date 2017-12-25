@@ -1,6 +1,7 @@
 package com.app.exchange.controller;
 
 import com.app.exchange.dao.IRoleDAO;
+import com.app.exchange.domain.Annonce;
 import com.app.exchange.domain.User;
 import com.app.exchange.domain.security.UserRole;
 import com.app.exchange.service.MailService;
@@ -36,6 +37,7 @@ public class HomeController {
     public String home(Model model)
     {
         model.addAttribute("categorieList", categorieService.getAllCategorie());
+        model.addAttribute("annonce", new Annonce());
         return "app/home";
     }
 

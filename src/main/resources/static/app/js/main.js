@@ -13,6 +13,11 @@ $(document).ready(function() {
         $("#addBienModal").slideDown();
     });
 
+    $('#ajouterAnnonce').click(function () {
+        console.log("### passer");
+        $("#addAnnonceModal").slideDown();
+    });
+
 
 
 });

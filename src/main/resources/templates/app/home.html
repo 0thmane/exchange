@@ -3,7 +3,7 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Shoes Store from templatemo</title>
+<title>Exchange</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="/app/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -13,6 +13,16 @@
 <link rel="stylesheet" type="text/css" href="/app/css/ddsmoothmenu.css" />
     <!--bootstrap date-time picker-->
     <link href="/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/app/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/app/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/app/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/app/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/app/css/ddsmoothmenu.css" />
+    <link rel="stylesheet" type="text/css" href="/app/css/main.css" />
+
+    <script type="text/javascript" src="/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="/app/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/app/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="/app/js/jquery.min.js"></script>
 <script type="text/javascript" src="/app/js/ddsmoothmenu.js">
@@ -164,31 +174,10 @@ ddsmoothmenu.init({
             <div class="center"><button id="ajouterAnnonce" class="open-to-edit btn btn-primary center-block" sec:authorize="isAuthenticated()">Ajouter une annonce</button></div>
             <div class="cleaner"></div>
                  	
-<div class="product_box">
-            	<h3>Proin volutpat</h3>
-           	<a href="productdetail.html"><img src="/app/images/product/04.jpg" alt="Shoes 4" /></a>
-            <p>Sed semper euismod dolor sit amet interdum. Phasellus in mi eros.</p>
-      <p class="product_price">$ 220</p>
-                <a href="shoppingcart.html" class="addtocart"></a>
-                <a href="productdetail.html" class="detail"></a>
-            </div>        	
-            <div class="product_box">
-	            <h3>Aenean tempus</h3>
-            	<a href="productdetail.html"><img src="/app/images/product/05.jpg" alt="Shoes 5" /></a>
-                <p>Maecenas porttitor erat quis leo pellentesque molestie.</p>
-              <p class="product_price">$ 180</p>
-                <a href="shoppingcart.html" class="addtocart"></a>
-                <a href="productdetail.html" class="detail"></a>
-            </div>        	
-            <div class="product_box no_margin_right">
-            	<h3>Nulla luctus urna</h3>
-            	<a href="productdetail.html"><img src="/app/images/product/06.jpg" alt="Shoes 6" /></a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p class="product_price">$ 160</p>
-                <a href="shoppingcart.html" class="addtocart"></a>
-                <a href="productdetail.html" class="detail"></a>
-            </div>        	
-        </div> 
+
+
+
+        </div>
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
     
@@ -239,25 +228,25 @@ ddsmoothmenu.init({
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="bienPrice">Categorie</label>
+                                        <div class="form-group">
+                                            <label for="categorieId">Categorie</label>
 
-                        <select class="form-control" id="categorieId" th:value="${categorieId}" name="categorieId" required="required">
-                            <option disabled="disabled" selected="selected"> -- choisir une categorie -- </option>
-                            <option th:each="eachCategorie : ${categorieList}" th:value="${eachCategorie.id}" th:text="${eachCategorie.name}">....</option>
-                        </select>
+                                            <select class="form-control" id="categorieId" th:value="${categorieId}" name="categorieId" required="required">
+                                                <option disabled="disabled" selected="selected">  choisir une categorie  </option>
+                                                <option th:each="eachCategorie : ${categorieList}" th:value="${eachCategorie.id}" th:text="${eachCategorie.name}">....</option>
+                                            </select>
 
-                    </div>
+                                        </div>
 
-                    <input type="hidden"
-                           name="${_csrf.parameterName}"
-                           value="${_csrf.token}"/>
+                                        <input type="hidden"
+                                               name="${_csrf.parameterName}"
+                                               value="${_csrf.token}"/>
 
-                    <button class="btn btn-primary" type="submit">Ajouter/Modifier bien</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Ferme</button> -->
+                                        <button class="btn btn-primary" type="submit">Ajouter/Modifier bien</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Ferme</button> -->
             </div>
         </div>
 
